@@ -1,0 +1,36 @@
+
+
+arch/arm/mach-imx/mach-imx6q.c
+drivers/hid/hid-multitouch.c     1 Stelle
+
+/drivers/input/touchscreen/Kconfig   egalax, ar1020
+/drivers/input/touchscreen/Makefile  egalax, ar1020
+/drivers/input/touchscreen/ar1020    neu dazukopiert
+/drivers/input/touchscreen/evervision  neu dazukopiert
+
+/drivers/mmc/card/block.c
+
+drivers/net/ethernet/freescale/fec_main.c  usw.    viele Unterschiede, pruefen... aber nix geaendert
+
+/drivers/tty/serial/imx.c   viele Unterschiede, pruefen... aber nix geaendert
+/drivers/tty/serial/imx_rs485.c    dazu
+
+/drivers/video/mxc/ldb.c     komplett neue methode
+rivers/video/mxc/mxc_hdmi.c  etc.  neu pruefen -> kws methode....
+
+/include/video/mxc_hdmi.h   2 defines dazu
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
