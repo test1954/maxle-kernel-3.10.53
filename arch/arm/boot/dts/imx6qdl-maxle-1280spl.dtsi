@@ -708,11 +708,11 @@
 
 		display-timings {
 			native-mode = <&timing0>;
-			// standard 1920x1080 display
+			// standard 1280x800 display
  			timing0: lp101wx1 { // 1280x800
- 				clock-frequency = <85000000>; 
- 				hactive = <1920>; 
- 				vactive = <1080>; 
+ 				clock-frequency = <72000000>; 
+ 				hactive = <1280>; 
+ 				vactive = <1024>;    //==== 800!!!!!
  				hback-porch = <48>; 
  				hfront-porch = <80>; 
  				vback-porch = <15>; 
@@ -733,11 +733,10 @@
 
 		display-timings {
 			native-mode = <&timing1>;
-			// standard 1920x1080 display
- 			timing1: lp101wx1 { // 1280x800
- 				clock-frequency = <85000000>; 
- 				hactive = <1920>; 
- 				vactive = <1080>; 
+			timing1: lp101wx1 { // 1280x800
+ 				clock-frequency = <72000000>; 
+ 				hactive = <1280>; 
+ 				vactive = <1024>;   //==== 800 !!! 
  				hback-porch = <48>; 
  				hfront-porch = <80>; 
  				vback-porch = <15>; 

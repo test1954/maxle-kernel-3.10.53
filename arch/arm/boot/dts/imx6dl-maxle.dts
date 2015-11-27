@@ -1,0 +1,93 @@
+/*
+ * Copyright (C) 2013 Freescale Semiconductor, Inc.
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2 as
+ * published by the Free Software Foundation.
+ */
+
+/dts-v1/;
+
+#include "imx6dl.dtsi"
+#include "imx6qdl-maxle.dtsi"
+
+/ {
+	model = "KWS i.MX6 DualLite Maxle Board";
+	compatible = "fsl,imx6dl-maxle", "fsl,imx6dl";
+};
+
+
+/*  &i2c3 { ax17135@48... EPaper...  entfernt */
+
+/*  check this elan touch
+				MX6QDL_PAD_EIM_A20__GPIO2_IO18 0x80000000
+				MX6QDL_PAD_EIM_DA8__GPIO3_IO08 0x80000000
+				MX6QDL_PAD_EIM_D28__GPIO3_IO28 0x170b0
+*/
+
+&ldb {    // maxle wiwi 53 neu
+	lvds-channel@0 {
+		crtc = "ipu2-di0";
+	};
+
+	lvds-channel@1 {
+		crtc = "ipu2-di1";
+	};
+};
+
+&mxcfb1 {
+	status = "okay";
+};
+
+&mxcfb2 {
+	status = "okay";
+};
+
+//  ======================= brauchen wir nicht bei 53 ???
+#if 0
+&ldb {
+	ipu_id = <0>;
+	sec_ipu_id = <0>;
+};
+
+&mxcfb1 {
+	status = "okay";
+};
+
+&mxcfb2 {
+	status = "okay";
+};
+
+&pxp {
+	status = "okay";
+};
+#endif
+//  ======================= brauchen wir nicht bei 53 ???
+
+&flexcan1{
+	status = "okay";
+};
+
+/****************************************/
+/* for maxle we add                     */
+/****************************************/
+
+&cpu0 {
+	arm-supply = <&reg_arm>;
+	soc-supply = <&reg_soc>;
+	pu-supply = <&reg_pu>; /* use pu_dummy if VDDSOC share with VDDPU */
+};
+
+&gpc {
+	fsl,ldo-bypass = <0>; /* use ldo-bypass, u-boot will check it and configure */
+	fsl,wdog-reset = <1>; /* watchdog select of reset source */
+	pu-supply = <&reg_pu>; /* ldo-bypass:use pu_dummy if VDDSOC share with VDDPU */
+};
+
+&gpu {
+	pu-supply = <&reg_pu>; /* ldo-bypass:use pu_dummy if VDDSOC share with VDDPU */
+};
+
+&vpu {
+	pu-supply = <&reg_pu>; /* ldo-bypass:use pu_dummy if VDDSOC share with VDDPU */
+};

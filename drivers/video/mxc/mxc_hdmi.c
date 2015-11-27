@@ -100,6 +100,18 @@ static const struct fb_videomode vga_mode = {
 	FB_VMODE_NONINTERLACED | FB_VMODE_ASPECT_4_3, FB_MODE_IS_VESA,
 };
 
+static const struct fb_videomode xga_mode = {
+	/* 13 1024x768-60 VESA */
+	NULL, 60, 1024, 768, 15384, 160, 24, 29, 3, 136, 6,
+	0, FB_VMODE_NONINTERLACED, FB_MODE_IS_VESA
+};
+
+static const struct fb_videomode sxga_mode = {
+	/* 20 1280x1024-60 VESA */
+	NULL, 60, 1280, 1024, 9259, 248, 48, 38, 1, 112, 3,
+	FB_SYNC_HOR_HIGH_ACT | FB_SYNC_VERT_HIGH_ACT,
+	FB_VMODE_NONINTERLACED, FB_MODE_IS_VESA
+};
 enum hdmi_datamap {
 	RGB444_8B = 0x01,
 	RGB444_10B = 0x03,
@@ -1813,7 +1825,9 @@ static void mxc_hdmi_edid_rebuild_modelist(struct mxc_hdmi *hdmi)
 
 	fb_destroy_modelist(&hdmi->fbi->modelist);
 	fb_add_videomode(&vga_mode, &hdmi->fbi->modelist);
-
+	fb_add_videomode(&xga_mode, &hdmi->fbi->modelist);
+	fb_add_videomode(&sxga_mode, &hdmi->fbi->modelist);
+	
 	for (i = 0; i < hdmi->fbi->monspecs.modedb_len; i++) {
 		/*
 		 * We might check here if mode is supported by HDMI.
@@ -1863,6 +1877,11 @@ static void  mxc_hdmi_default_modelist(struct mxc_hdmi *hdmi)
 
 	fb_destroy_modelist(&hdmi->fbi->modelist);
 
+	/*Add XGA and SXGA to default modelist */
+	fb_add_videomode(&vga_mode, &hdmi->fbi->modelist);
+	fb_add_videomode(&xga_mode, &hdmi->fbi->modelist);
+	fb_add_videomode(&sxga_mode, &hdmi->fbi->modelist);
+	
 	/*Add all no interlaced CEA mode to default modelist */
 	for (i = 0; i < ARRAY_SIZE(mxc_cea_mode); i++) {
 		mode = &mxc_cea_mode[i];
@@ -1881,7 +1900,7 @@ static void mxc_hdmi_set_mode_to_vga_dvi(struct mxc_hdmi *hdmi)
 
 	hdmi_disable_overflow_interrupts();
 
-	fb_videomode_to_var(&hdmi->fbi->var, &vga_mode);
+	fb_videomode_to_var(&hdmi->fbi->var, &sxga_mode);
 
 	hdmi->requesting_vga_for_initialization = true;
 	mxc_hdmi_notify_fb(hdmi);
